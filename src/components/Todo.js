@@ -5,6 +5,17 @@ function Todo() {
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
 
+  useEffect(() => {
+    const todoListLocalStorage = localStorage.getItem("todoList");
+    if (todoListLocalStorage) {
+      setTodoList(JSON.parse(todoListLocalStorage));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+  }, [todoList]);
+
   const inputHandler = (e) => {
     setTodo(e.target.value);
   };
